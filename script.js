@@ -7,6 +7,12 @@ const uniqueFruits = [
 
 const myfruits = document.querySelector("#body-contents");
 
+//this array will store the ammount of fruit against each category.
+let ammountList=[];
+
+
+
+// 
 myfruits.innerHTML = uniqueFruits.map((item, i) => {
     console.log("i:",i);
     var { image, title, price } = item;
@@ -25,6 +31,11 @@ myfruits.innerHTML = uniqueFruits.map((item, i) => {
 }).join('');
 
 var cart = [];
+
+
+
+// countAdd:if the card is already in the card then the value of that card will be modified, these individual value will be saved to 
+//a list named: amountlist(the index will be corresponding to the index of )
 
 function addtocart(index) {
     cart.push({ ...uniqueFruits[index] });
@@ -75,6 +86,11 @@ function displaycart() {
                 </div>
                 <p style='font-size:12px;'>${title}</p>
                 <h2 style='font-size: 15px;'>$ ${price}.00</h2>
+                
+                {------------------!----------------}
+                <p class="amountofProd"></p>
+                
+                
                 <button class="dltButton" id='deleteButton_${j}'>dlt</button>
                 
                 </div>`
