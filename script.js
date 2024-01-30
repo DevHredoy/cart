@@ -17,32 +17,39 @@ const modifiedFruitList = uniqueFruits.map((fruit) => {
 const myfruits = document.querySelector("#body-contents");
 
 var totalquantity = 0;
+function leftdisplay() {
+  myfruits.innerHTML = modifiedFruitList
+    .map((item, i) => {
+      var { image, title, price, amount } = item;
+      return `<div class='box'>
 
-myfruits.innerHTML = modifiedFruitList
-  .map((item, i) => {
-    var { image, title, price, amount } = item;
-    return `<div class='box'>
+  <div class="adjust-button"  ><button id="plus-mod${i}" class="oper-button">+</button><span class="adjust-amount" id="amount_${i}" >0</span><button class="oper-button" id="minus-mod${i}">-</button></div>
 
-    <div class="adjust-button"  ><button id="plus-mod${i}" class="oper-button">+</button><span class="adjust-amount">${amount}</span><button class="oper-button" id="minus-mod${i}">-</button></div>
+          <div class='img-box'>
+              <img class='images' src=${image}></img>
+          </div>
+          <div class='bottom'>
+              <p>${title}</p>
+              <h2>$ ${price}.00</h2>
+              <button id='addToCartBtn_${i}'>Add to cart</button>
+          </div>
+      </div>`;
+    })
+    .join("");
+}
 
-            <div class='img-box'>
-                <img class='images' src=${image}></img>
-            </div>
-            <div class='bottom'>
-                <p>${title}</p>
-                <h2>$ ${price}.00</h2>
-                <button id='addToCartBtn_${i}'>Add to cart</button>
-            </div>
-        </div>`;
-  })
-  .join("");
-
+leftdisplay();
 var cart = [];
 
 function addtocart(index) {
   var idOfFruit = index;
   if (modifiedFruitList[index].amount == 0) {
     modifiedFruitList[index].amount++;
+
+    // let amountid = "amount_" + index;
+    // console.log("amountid:", amountid);
+    // document.getElementById(amountid).innerText = am;
+    //leftdisplay();
     totalquantity++;
 
     cart.push({ ...modifiedFruitList[index] });
@@ -55,6 +62,11 @@ function addtocart(index) {
       var { id } = value;
       if (id == idOfFruit) {
         cart[i].amount++;
+        let am = modifiedFruitList[index].amount++;
+
+        let amountid = "amount_" + index;
+        console.log("amountid:", amountid);
+        document.getElementById(amountid).innerText = am;
         totalquantity++;
         console.log("total:", total);
         //console.log("cart[i].amount:",cart[i].amount);
@@ -62,6 +74,7 @@ function addtocart(index) {
     });
     displaycart();
   }
+  // leftdisplay();
 }
 
 function delElement(a) {
@@ -114,8 +127,7 @@ function displaycart() {
         var { image, title, price, amount } = items;
 
         let totalPrice = price * amount;
-        //change 2
-        // total=total+price;
+
         total = total + totalPrice;
 
         document.getElementById("total").innerHTML = "$ " + total + ".00";
