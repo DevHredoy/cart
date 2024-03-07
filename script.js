@@ -36,16 +36,19 @@ const modifiedFruitList = [
 const myfruits = document.querySelector("#body-contents");
 
 let totalQuantity = 0;
-
+// l
+localStorage.getItem("");
 displayCart();
 
 function displayCart() {
   myfruits.innerHTML = modifiedFruitList
     .map((item, i) => {
       let { image, title, price } = item;
-    
+
       return `<div class='box'>
-      <div class="adjust-button"  ><button id="plus-mod${i}" class="oper-button">+</button><span class="adjust-amount" id="rough-count${i}">1</span><button class="oper-button" id="minus-mod${i}">-</button></div>
+      <div class="adjust-button"  ><button id="plus-mod${i}" class="oper-button">+</button><span class="adjust-amount" id="rough-count${i}">${localStorage.getItem(
+        "changeC" + i
+      )}</span><button class="oper-button" id="minus-mod${i}">-</button></div>
           <div class='img-box'>
               <img class='images' src=${image}></img>
           </div>
@@ -91,9 +94,15 @@ function plusMod(indexOfFrtOrig) {
 
     let idCount = "rough-count" + indexOfFrtOrig;
 
+    //the line below is making problem
     document.getElementById(idCount).innerText = rof;
     displaySidebarCart();
   }
+
+  // local storage
+  var tempGen = "rough-count" + indexOfFrtOrig;
+  var changeRoughC = document.getElementById(tempGen).innerHTML;
+  localStorage.setItem("changeC" + indexOfFrtOrig, changeRoughC);
 }
 
 //----------------------------- minus left button
@@ -281,7 +290,7 @@ function decrsAmInRight(i) {
       }
     });
 
-    //---------------
+    //----------    -----
 
     let tempId = "amount-side_" + i;
     document.getElementById(tempId).innerText = cart[i].amount;
